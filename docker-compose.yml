@@ -1,0 +1,17 @@
+version: "3.0"
+services:
+    php:
+        image: anthonymrodrigues/php-apachefuncionando:3.0
+        container_name: btimepuzzle
+        restart: always 
+        #command: bash -c "sed -i \"s/memory_limit = 128M/memory_limit = 512M/\" /usr/local/etc/php/php.ini && sed -i \"s/short_open_tag = Off/short_open_tag = On/\" /usr/local/etc/php/php.ini && sed -i \"s/max_execution_time = 30/max_execution_time =0/\" /usr/local/etc/php/php.ini && php-fpm"
+        volumes:
+        #- ../../docker/php:/usr/local/etc/php/conf.d
+        #- ../../docker/php/extensions:/usr/local/lib/php/extensions/no-debug-non-zts-20151012
+            - ./:/var/www/html/
+            -  /usr/bin/ssh:/usr/bin/ssh
+        environment:
+            - XDEBUG_CONFIG=remote_host=172.17.0.1
+            - PHP_IDE_CONFIG=serverName=local
+        ports:
+            - "80:80"
